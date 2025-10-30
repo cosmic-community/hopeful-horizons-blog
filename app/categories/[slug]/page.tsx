@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation'
 export async function generateStaticParams() {
   const categories = await getAllCategories();
   
-  return categories.map((category) => ({
+  return categories.map((category: Category) => ({
     slug: category.slug,
   }));
 }
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const categories = await getAllCategories();
-  const category = categories.find(cat => cat.slug === slug);
+  const category = categories.find((cat: Category) => cat.slug === slug);
   
   if (!category) {
     return {
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const categories = await getAllCategories();
-  const category = categories.find(cat => cat.slug === slug);
+  const category = categories.find((cat: Category) => cat.slug === slug);
   
   if (!category) {
     notFound();
@@ -62,7 +62,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       <div className="mt-12">
         {posts && posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
               <PostCard key={post.id} post={post as Post} />
             ))}
           </div>

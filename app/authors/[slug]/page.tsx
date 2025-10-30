@@ -8,7 +8,7 @@ export async function generateStaticParams() {
   const posts = await getAllPosts();
   const authorSlugs = new Set<string>();
   
-  posts.forEach((post) => {
+  posts.forEach((post: Post) => {
     const author = (post as Post).metadata?.author;
     if (author) {
       authorSlugs.add(author.slug);
@@ -102,7 +102,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         
         {posts && posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {posts.map((post: Post) => (
               <PostCard key={post.id} post={post as Post} showAuthor={false} />
             ))}
           </div>
